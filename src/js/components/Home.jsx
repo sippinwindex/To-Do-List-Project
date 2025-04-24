@@ -1,28 +1,22 @@
-import React from "react";
+import React from 'react';
+import Todo from './Todo';
+import '../../styles/glassmorphism.css'; 
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+  return (
+    
+    <div className="container mx-auto p-4 flex justify-center items-start min-h-screen">
+      <div className="w-full max-w-2xl mt-10"> {/* Added top margin */}
+        {/* Main application heading with animated gradient */}
+        <h1 className="text-3xl font-bold mb-8 text-center animated-gradient">
+          Todo App
+        </h1>
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+        {/* Core Todo functionality component */}
+        <Todo />
+      </div>
+    </div>
+  );
 };
 
 export default Home;

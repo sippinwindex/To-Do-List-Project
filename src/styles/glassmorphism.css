@@ -1,0 +1,421 @@
+/* === Base Variables === */
+:root {
+    --blur-amount: 10px;
+    --border-radius-main: 18px;
+    --border-radius-item: 10px;
+    --transition-speed: 0.3s;
+  
+    /* Glass & Colors */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-bg-light: rgba(255, 255, 255, 0.2);
+    --glass-border-color: rgba(255, 255, 255, 0.25);
+    --glass-highlight-border: rgba(255, 255, 255, 0.4); /* For top/left borders */
+  
+    /* Background Gradient */
+    --primary-gradient: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #a06bff); /* Added purple */
+    --gradient-size: 400%;
+  
+    /* Text */
+    --text-color: #f0f0f0;
+    --text-color-muted: #cccccc;
+    --text-color-accent: #ffffff;
+    --delete-color: #ff7b7b;
+    --delete-color-hover: #ff4d4d;
+  
+    /* Shadows */
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.2);
+  
+    /* Font */
+    --font-family: 'Poppins', sans-serif;
+  }
+  
+  /* === Global Reset & Base === */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    min-height: 100vh;
+    background: var(--primary-gradient);
+    background-size: var(--gradient-size) var(--gradient-size);
+    animation: gradient-bg 18s ease infinite;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex; /* Helps center content */
+    justify-content: center; /* Helps center content */
+    align-items: flex-start; /* Align content to top */
+    padding-top: 5vh; /* Give some space from the top */
+  }
+  
+  /* === Animated Background === */
+  @keyframes gradient-bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* === Main Glass Panel (Todo Container) === */
+  .glass-panel {
+    width: 100%;
+    max-width: 600px; /* Or your preferred max width */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount)); /* Safari */
+    border-radius: var(--border-radius-main);
+    border: 1px solid var(--glass-border-color);
+    /* Subtle highlight for 3D effect */
+    border-top-color: var(--glass-highlight-border);
+    border-left-color: var(--glass-highlight-border);
+    box-shadow: var(--shadow-medium);
+    padding: 2rem 2.5rem; /* More padding */
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    /* Add margin if needed, e.g., margin: 2rem; */
+  }
+  
+  /* Optional: Slightly lift the panel on hover */
+  .glass-panel:hover {
+    /* transform: translateY(-5px); */ /* Removed as requested */
+    /* box-shadow: var(--shadow-heavy); */ /* Can keep if you like subtle lift shadow */
+  }
+  
+  
+  /* === Headings === */
+  h1.animated-gradient {
+    font-size: 2.6rem; /* Adjusted size */
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: var(--primary-gradient); /* Reapply gradient */
+    background-size: var(--gradient-size) var(--gradient-size);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-text 10s ease infinite, gradient-bg 18s ease infinite; /* Sync text animation with bg maybe? */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for readability */
+  }
+  
+  @keyframes gradient-text {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  
+  /* === Todo Header (Input & Add Button) === */
+  .todo-header {
+    display: flex;
+    gap: 0.8rem; /* Space between input and button */
+    margin-bottom: 1.5rem; /* Space below header */
+  }
+  
+  .new-todo {
+    flex-grow: 1; /* Take available space */
+    background: rgba(255, 255, 255, 0.08); /* Slightly different bg */
+    border: 1px solid var(--glass-border-color);
+    border-radius: var(--border-radius-item);
+    padding: 0.8rem 1.2rem;
+    color: var(--text-color-accent); /* Brighter text for input */
+    font-size: 1rem;
+    outline: none;
+    transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  }
+  
+  .new-todo::placeholder {
+    color: var(--text-color-muted);
+    opacity: 0.7;
+  }
+  
+  .new-todo:focus {
+    background: var(--glass-bg-light);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); /* Focus ring */
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* === General Button Styles === */
+  .btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-item);
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition-speed) ease;
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(3px); /* Subtle blur on buttons */
+    -webkit-backdrop-filter: blur(3px);
+    box-shadow: var(--shadow-light);
+    color: var(--text-color);
+    flex-shrink: 0; /* Prevent shrinking */
+    text-align: center;
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    background: rgba(255, 255, 255, 0.3); /* Lighter on hover */
+    color: var(--text-color-accent);
+  }
+  
+  .btn:active {
+    transform: translateY(-1px) scale(0.98); /* Press down effect */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Primary Add Task Button */
+  .btn.add-task { /* Use .btn.add-task for specificity */
+     background: var(--primary-gradient);
+     background-size: 200% 200%; /* Smaller size for faster move on hover */
+     animation: gradient-bg 6s ease infinite alternate; /* Subtle animation */
+     color: white;
+     border-color: rgba(255, 255, 255, 0.3);
+  }
+  .btn.add-task:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      background-position: right center; /* Shift gradient on hover */
+  }
+  
+  
+  /* === Todo Body & Items === */
+  .todo-body {
+    margin-top: 1rem; /* Space above list */
+    max-height: 50vh; /* Limit height and allow scrolling */
+    overflow-y: auto; /* Enable vertical scroll */
+    padding-right: 0.5rem; /* Space for scrollbar */
+  
+    /* Custom Scrollbar Styling (Optional, Webkit browsers) */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--glass-bg-light);
+      border-radius: 4px;
+      border: 1px solid var(--glass-border-color);
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+  .todo-item {
+    background: rgba(255, 255, 255, 0.05); /* Darker item background */
+    border-radius: var(--border-radius-item);
+    padding: 0.9rem 1.3rem; /* Slightly more padding */
+    margin-bottom: 0.8rem; /* Space between items */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-speed) ease, opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease; /* Smooth transitions for various properties */
+    opacity: 1;
+    max-height: 100px; /* Start with a reasonable max-height for exit animation */
+    overflow: hidden; /* Important for exit animation */
+    animation: itemFadeIn 0.4s ease forwards; /* Entry animation */
+  }
+  
+  .todo-item:last-child {
+    margin-bottom: 0; /* No margin on the last item */
+  }
+  
+  .todo-item:hover {
+    background: var(--glass-bg); /* Use main glass bg on hover for contrast */
+    transform: scale(1.02); /* Scale up slightly */
+    border-color: var(--glass-border-color);
+    box-shadow: var(--shadow-light);
+  }
+  
+  /* Animation for adding item */
+  @keyframes itemFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Style to apply via JS before removing item */
+  .todo-item.exiting {
+    animation: itemFadeOut 0.5s ease forwards;
+  }
+  
+  /* Animation for removing item */
+  @keyframes itemFadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+      max-height: 100px;
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.9) translateX(20px);
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-width: 0; /* Hide border during collapse */
+    }
+  }
+  
+  
+  /* Todo Item Text Span */
+  .todo-item span {
+    flex-grow: 1;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+    position: relative; /* Needed for pseudo-element */
+    padding-left: 2rem; /* Space for custom checkbox */
+  }
+  
+  /* Custom Checkbox Styling */
+  .todo-item span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--glass-border-color);
+    border-radius: 50%; /* Circle */
+    background: rgba(255, 255, 255, 0.1);
+    transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  }
+  /* Checkmark using pseudo-element */
+  .todo-item span::after {
+    content: '';
+    position: absolute;
+    left: 6px; /* Position checkmark inside */
+    top: 50%;
+    transform: translateY(-60%) rotate(45deg) scale(0); /* Start hidden and rotated */
+    width: 5px;
+    height: 10px;
+    border: solid var(--text-color-accent);
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  /* Completed State */
+  .todo-item span.completed {
+    color: var(--text-color-muted);
+    text-decoration: none; /* Remove default line-through */
+  }
+  .todo-item span.completed::before {
+    background: var(--primary-gradient); /* Fill circle with gradient */
+    background-size: 150% 150%;
+    border-color: transparent;
+  }
+  .todo-item span.completed::after {
+     opacity: 1;
+     transform: translateY(-60%) rotate(45deg) scale(1); /* Show checkmark */
+  }
+  
+  /* Delete Button within Todo Item */
+  .todo-item .delete-btn {
+    background: none;
+    border: none;
+    color: var(--delete-color);
+    font-size: 1.4rem; /* Larger 'x' */
+    font-weight: bold;
+    line-height: 1; /* Ensure it doesn't affect line height */
+    padding: 0.2rem 0.5rem;
+    margin-right: -0.5rem; /* Align flush right */
+    cursor: pointer;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    opacity: 0.6; /* Dimmed until hover */
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  .todo-item .delete-btn:hover {
+    color: var(--delete-color-hover);
+    transform: scale(1.25); /* Enlarge on hover */
+    opacity: 1;
+  }
+  
+  
+  /* === Todo Footer === */
+  .todo-footer {
+    padding-top: 1.5rem;
+    margin-top: 1rem; /* Reduced margin, relying on body padding */
+    border-top: 1px solid var(--glass-border-color);
+    color: var(--text-color-muted);
+    font-size: 0.9rem;
+  }
+  
+  .todo-footer .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem; /* Align with item padding */
+  }
+  
+  .todo-footer .filter-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Space between filter buttons */
+    margin-bottom: 0.5rem; /* Reduced bottom margin */
+  }
+  
+  /* Filter Button Specifics */
+  .todo-footer .filter-buttons .btn {
+    padding: 0.4rem 1rem; /* Smaller */
+    font-size: 0.85rem;
+    background: var(--glass-bg);
+    box-shadow: none; /* Simpler shadow */
+  }
+  .todo-footer .filter-buttons .btn:hover {
+    background: var(--glass-bg-light);
+    transform: translateY(-2px); /* Less lift */
+    box-shadow: var(--shadow-light);
+  }
+  .todo-footer .filter-buttons .btn.active { /* Active filter state */
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--text-color-accent);
+    font-weight: bold;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transform: translateY(-1px); /* Show it's pressed */
+  }
+  
+  /* Clear Completed Button */
+  .todo-footer .clear-btn {
+    color: var(--delete-color); /* Match delete icon color */
+    background: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
+    box-shadow: none;
+    backdrop-filter: none;
+    font-size: 0.9rem;
+  }
+  .todo-footer .clear-btn:hover {
+    color: var(--delete-color-hover);
+    text-shadow: 0 0 5px rgba(255, 123, 123, 0.5); /* Subtle glow */
+  }
+  
+  
+  /* === Utility & Empty State === */
+  .empty-list-message {
+    text-align: center;
+    color: var(--text-color-muted);
+    padding: 2rem 0;
+    font-style: italic;
+  }
