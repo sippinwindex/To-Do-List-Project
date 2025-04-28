@@ -55,6 +55,8 @@ const Todo = () => {
         setCounter={setCounter}
       />
       <TodoBody
+        // todos={todos}
+        // setTodos={setTodos}
         // Pass the filtered list to the body for rendering
         todos={filteredTodos}
         setTodos={setTodos} // Pass the original setter for modifying todos
